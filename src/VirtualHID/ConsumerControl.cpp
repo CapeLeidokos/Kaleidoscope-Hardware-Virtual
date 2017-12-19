@@ -1,6 +1,8 @@
 #include "ConsumerControl.h"
-#include <iostream>
+#include "Logging.h"
 #include "virtual_io.h"
+
+using namespace kaleidoscope::logging;
 
 ConsumerControl_::ConsumerControl_(void) {}
 void ConsumerControl_::begin(void) { end(); }
@@ -44,7 +46,7 @@ void ConsumerControl_::sendReport() {
 }
 
 void ConsumerControl_::sendReportUnchecked() {
-  std::cout << "A virtual ConsumerControl HID report was sent." << std::endl;
+  log_info("A virtual ConsumerControl HID report was sent.\n");
   logUSBEvent("ConsumerControl HID report", &_report, sizeof(_report));
 }
 

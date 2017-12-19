@@ -1,6 +1,8 @@
 #include "Mouse.h"
-#include <iostream>
+#include "Logging.h"
 #include "virtual_io.h"
+
+using namespace kaleidoscope::logging;
 
 Mouse_::Mouse_(void) {}
 void Mouse_::begin(void) { end(); }
@@ -48,7 +50,7 @@ void Mouse_::sendReport() {
 }
 
 void Mouse_::sendReportUnchecked() {
-  std::cout << "A virtual Mouse HID report was sent." << std::endl;
+  log_info("A virtual Mouse HID report was sent.\n");
   logUSBEvent("Mouse HID report", &report, sizeof(report));
 }
 

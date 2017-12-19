@@ -19,9 +19,11 @@
 #include <Kaleidoscope.h>
 #include "Kaleidoscope-Hardware-Virtual.h"
 #include "virtual_io.h"
-#include <iostream>
+#include "Logging.h"
 #include <sstream>
 #include <string>
+
+using namespace kaleidoscope::logging;
 
 Virtual::Virtual(void) 
    :  _readMatrixEnabled(true)
@@ -93,20 +95,20 @@ void Virtual::readMatrix() {
       if(token.front() == '(' && token.back() == ')') {
         size_t commapos = token.find_first_of(',');
         if(commapos == std::string::npos) {
-          std::cout << "Bad (r,c) pair: " << token << std::endl;
+          log_error("Bad (r,c) pair: %s\n", token.c_str());
           continue;
         } else {
           key.row = std::stoi(token.substr(1,commapos-1));
           key.col = std::stoi(token.substr(commapos+1,token.length()-commapos-1));
           if(key.row >= ROWS || key.col >= COLS) {
-            std::cout << "Bad coordinates: " << token << std::endl;
+            log_error("Bad coordinates: %s\n", token.c_str());
             continue;
           }
         }
       } else {
         key = getRCfromPhysicalKey(token);
         if(key.row >= ROWS || key.col >= COLS) {
-          std::cout << "Unrecognized command: " << token << std::endl;
+          log_error("Unrecognized command: %s\n", token.c_str());
           continue;
         }
       }
@@ -132,7 +134,7 @@ void Virtual::actOnMatrixScan() {
           keyState |= WAS_PRESSED;
           break;
         case TAP:
-          std::cerr << "Error: assertion failed, keystates_prev should not be TAP" << std::endl;
+          log_error("Error: assertion failed, keystates_prev should not be TAP\n");
           break;
         case NOT_PRESSED:
         default:

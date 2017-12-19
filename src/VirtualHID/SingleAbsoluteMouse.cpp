@@ -1,11 +1,13 @@
 #include "SingleAbsoluteMouse.h"
-#include <iostream>
+#include "Logging.h"
 #include "virtual_io.h"
+
+using namespace kaleidoscope::logging;
 
 SingleAbsoluteMouse_::SingleAbsoluteMouse_(void) {}
 
 void SingleAbsoluteMouse_::sendReport(void* data, int length) {
-  std::cout << "A virtual SingleAbsoluteMouse HID report was sent." << std::endl;
+  log_info("A virtual SingleAbsoluteMouse HID report was sent.\n");
   logUSBEvent("SingleAbsoluteMouse HID report", data, length);
 }
 

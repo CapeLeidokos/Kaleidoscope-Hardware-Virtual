@@ -1,6 +1,8 @@
 #include "SystemControl.h"
-#include <iostream>
+#include "Logging.h"
 #include "virtual_io.h"
+
+using namespace kaleidoscope::logging;
 
 SystemControl_::SystemControl_(void) {}
 void SystemControl_::begin(void) { releaseAll(); }
@@ -22,7 +24,7 @@ void SystemControl_::press(uint8_t s) {
 }
 
 void SystemControl_::sendReport(void* data, int length) {
-  std::cout << "A virtual SystemControl HID report with value " << *(uint8_t*)data << " was sent." << std::endl;
+  log_info("A virtual SystemControl HID report with value %hhu was sent.\n", *(uint8_t*)data);
   logUSBEvent("SystemControl HID report", data, length);
 }
 
