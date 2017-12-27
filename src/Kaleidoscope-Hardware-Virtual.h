@@ -23,7 +23,7 @@
 
 #define COLS 16
 #define ROWS 4
-#define LED_COUNT 0
+#define LED_COUNT 64
 
 typedef struct {
   uint8_t r;
@@ -53,12 +53,12 @@ class Virtual {
   bool isKeyMasked(byte row, byte col);
   void maskHeldKeys(void);
 
-  void syncLeds(void) {}
-  void setCrgbAt(byte /*row*/, byte /*col*/, cRGB /*color*/) {}
-  void setCrgbAt(uint8_t /*i*/, cRGB /*color*/) {}
-  cRGB getCrgbAt(uint8_t /*i*/) {
-    return CRGB(0, 0, 0);
-  }
+  // For virtual hardware, the current state of all LEDs will be logged to a dedicated file in results upon each call to syncLeds()
+  void syncLeds(void);
+  void setCrgbAt(byte /*row*/, byte /*col*/, cRGB /*color*/);
+  void setCrgbAt(uint8_t /*i*/, cRGB /*color*/);
+  cRGB getCrgbAt(uint8_t /*i*/);
+
   void scanMatrix(void) {
     readMatrix();
     actOnMatrixScan();
@@ -74,6 +74,8 @@ class Virtual {
 
   keystate keystates[ROWS][COLS];
   keystate keystates_prev[ROWS][COLS];
+
+  cRGB ledStates[LED_COUNT];
 
   bool _readMatrixEnabled;
 

@@ -22,6 +22,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 
 Virtual::Virtual(void)
   :  _readMatrixEnabled(true) {
@@ -34,6 +35,9 @@ void Virtual::setup(void) {
       keystates_prev[row][col] = NOT_PRESSED;
       mask[row][col] = false;
     }
+  }
+  for (byte i = 0; i < LED_COUNT; i++) {
+    ledStates[i] = CRGB(0, 0, 0);
   }
 }
 
@@ -251,6 +255,30 @@ void Virtual::maskHeldKeys(void) {
       mask[row][col] = (keystates[row][col] == PRESSED);
     }
   }
+}
+
+void Virtual::syncLeds(void) {
+  // log format: red.green.blue where values are written in hex; followed by a space, followed by the next LED
+  std::stringstream ss;
+  ss << std::hex;
+  for (byte i = 0; i < LED_COUNT; i++) {
+    const cRGB state = ledStates[i];
+    ss << (unsigned int)state.r << "." << (unsigned int)state.g << "." << (unsigned int)state.b << " ";
+  }
+  ss << std::endl;
+  logLEDStates(ss.str());
+}
+
+void Virtual::setCrgbAt(byte row, byte col, cRGB color) {
+  setCrgbAt(row * COLS + col, color);
+}
+
+void Virtual::setCrgbAt(byte i, cRGB color) {
+  ledStates[i] = color;
+}
+
+cRGB Virtual::getCrgbAt(byte i) {
+  return ledStates[i];
 }
 
 HARDWARE_IMPLEMENTATION KeyboardHardware;

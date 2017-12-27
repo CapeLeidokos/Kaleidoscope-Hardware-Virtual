@@ -13,3 +13,4 @@ void nextCycle(void);  // should only be used by cores/virtual/main.cpp, to incr
 
 void logUSBEvent(std::string descrip, void* data, int length);
 void logUSBEvent_keyboard(std::string descrip);  // assumes 'descrip' uniquely describes the raw data too
+void logLEDStates(std::string descrip);  // assumes 'descrip' uniquely describes the LED states

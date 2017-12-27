@@ -11,6 +11,7 @@
 static bool interactive;
 static std::istream* input = NULL;
 static std::ostream* usbstream = NULL;
+static std::ostream* ledstream = NULL;
 static unsigned cycle = 0;
 
 bool isInteractive(void) {
@@ -36,6 +37,12 @@ void logUSBEvent(std::string descrip, void* data, int length) {
 void logUSBEvent_keyboard(std::string descrip) {
   if (usbstream) {
     *usbstream << "Cycle " << std::dec << currentCycle() << ": " << descrip << std::endl;
+  }
+}
+
+void logLEDStates(std::string descrip) {
+  if (ledstream) {
+    *ledstream << "Cycle " << std::dec << currentCycle() << ": " << descrip << std::endl;
   }
 }
 
@@ -65,6 +72,7 @@ bool initVirtualInput(int argc, char* argv[]) {
     return false;
   }
   usbstream = new std::ofstream("results/USB.txt");
+  ledstream = new std::ofstream("results/LED.txt");
 
   return true;
 }
