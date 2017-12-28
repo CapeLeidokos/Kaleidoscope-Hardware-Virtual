@@ -57,7 +57,8 @@ class Virtual {
   void syncLeds(void);
   void setCrgbAt(byte /*row*/, byte /*col*/, cRGB /*color*/);
   void setCrgbAt(uint8_t /*i*/, cRGB /*color*/);
-  cRGB getCrgbAt(uint8_t /*i*/);
+  cRGB getCrgbAt(uint8_t /*i*/) const;
+  cRGB getCrgbAt(byte /*row*/, byte /*col*/) const;
 
   void scanMatrix(void) {
     readMatrix();

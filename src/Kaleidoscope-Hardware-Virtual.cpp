@@ -277,8 +277,13 @@ void Virtual::setCrgbAt(byte i, cRGB color) {
   ledStates[i] = color;
 }
 
-cRGB Virtual::getCrgbAt(byte i) {
+cRGB Virtual::getCrgbAt(byte i) const {
   return ledStates[i];
+}
+  
+cRGB Virtual::getCrgbAt(byte /*row*/, byte /*col*/) const
+{
+   return ledStates[row * COLS + col];
 }
 
 HARDWARE_IMPLEMENTATION KeyboardHardware;
