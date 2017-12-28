@@ -281,7 +281,7 @@ cRGB Virtual::getCrgbAt(byte i) const {
   return ledStates[i];
 }
   
-cRGB Virtual::getCrgbAt(byte /*row*/, byte /*col*/) const
+cRGB Virtual::getCrgbAt(byte row, byte col) const
 {
    return ledStates[row * COLS + col];
 }
