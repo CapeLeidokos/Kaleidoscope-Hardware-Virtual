@@ -51,7 +51,7 @@ bool initVirtualInput(int argc, char* argv[]) {
     printHelp();
     return false;
   } else if (argc > 2) {
-    std::cerr << "Error: more arguments than expected (got " << argc - 1 << ")" << std::endl;
+    std::cerr << "Error: more arguments than expected (got " << (argc - 1) << ")" << std::endl;
     return false;
   }
 

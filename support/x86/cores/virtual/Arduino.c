@@ -2,6 +2,8 @@
 
 // TODO: better time emulation
 // this is pretty hacky, but hopefully helps most code behave sanely
+// note: 'weak' attribute allows users to override with their own implementation of millis()
+__attribute__((weak))
 unsigned long millis(void) {
   static unsigned long time = 0;
   return time++;
