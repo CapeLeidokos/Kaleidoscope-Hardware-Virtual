@@ -125,6 +125,10 @@ void Virtual::setKeystate(byte row, byte col, keystate ks) {
   keystates[row][col] = ks;
 }
 
+Virtual::keystate Virtual::getKeystate(byte row, byte col) const {
+   return keystates[row][col];
+}
+
 void Virtual::actOnMatrixScan() {
   for (byte row = 0; row < ROWS; row++) {
     for (byte col = 0; col < COLS; col++) {
