@@ -22,7 +22,7 @@
 #include <iostream>
 
 // Declared weak in Arduino.h to allow user redefinitions.
-int atexit(void (* /*func*/)()) throw () {
+int atexit(void (* /*func*/)()) {
   return 0;
 }
 
