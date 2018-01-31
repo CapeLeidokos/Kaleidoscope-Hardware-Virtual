@@ -21,10 +21,15 @@
 #include "virtual_io.h"
 #include <iostream>
 
+// atexit is defined in stdlib.h which is included in Arduino.h
+// There the function can be declared "noexept" or without "noexecpt"
+// depending on the version of the stdlib (c++98/c++11). Also it 
+// is not possible to add weak linkage after first declaration.
+
 // Declared weak in Arduino.h to allow user redefinitions.
-int atexit(void (* /*func*/)()) noexcept {
-  return 0;
-}
+// int atexit(void (* /*func*/)()) noexcept {
+//   return 0;
+// }
 
 // Weak empty variant initialization function.
 // May be redefined by variant files.
