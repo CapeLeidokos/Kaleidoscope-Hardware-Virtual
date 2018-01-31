@@ -2,14 +2,14 @@
 #include "Arduino.h"
 
 // see comments in the real HardwareSerial.cpp
-void serialEvent() __attribute__((weak));
-void serialEvent1() __attribute__((weak));
-void serialEvent2() __attribute__((weak));
-void serialEvent3() __attribute__((weak));
-bool Serial0_available() __attribute__((weak));
-bool Serial1_available() __attribute__((weak));
-bool Serial2_available() __attribute__((weak));
-bool Serial3_available() __attribute__((weak));
+void serialEvent() __attribute__((weak)) {}
+void serialEvent1() __attribute__((weak)) {}
+void serialEvent2() __attribute__((weak)) {}
+void serialEvent3() __attribute__((weak)) {}
+bool Serial0_available() __attribute__((weak)) {}
+bool Serial1_available() __attribute__((weak)) {}
+bool Serial2_available() __attribute__((weak)) {}
+bool Serial3_available() __attribute__((weak)) {}
 
 void serialEventRun(void) {
   if (Serial0_available && serialEvent && Serial0_available()) serialEvent();
