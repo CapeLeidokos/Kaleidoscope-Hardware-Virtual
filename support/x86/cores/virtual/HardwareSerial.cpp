@@ -15,10 +15,18 @@ void serialEvent() {}
 void serialEvent1() {}
 void serialEvent2() {}
 void serialEvent3() {}
-bool Serial0_available() { return true; }
-bool Serial1_available() { return true; }
-bool Serial2_available() { return true; }
-bool Serial3_available() { return true; }
+bool Serial0_available() {
+  return true;
+}
+bool Serial1_available() {
+  return true;
+}
+bool Serial2_available() {
+  return true;
+}
+bool Serial3_available() {
+  return true;
+}
 
 void serialEventRun(void) {
   if (Serial0_available()) serialEvent();
