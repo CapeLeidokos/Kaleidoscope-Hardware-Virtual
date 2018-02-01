@@ -129,12 +129,6 @@ typedef uint8_t byte;
 void init(void);
 void initVariant(void);
 
-// #ifdef __cplusplus
-// int atexit(void (*func)()) noexcept __attribute__((weak));
-// #else
-// int atexit(void (*func)()) __attribute__((weak));
-// #endif
-
 void pinMode(uint8_t, uint8_t);
 void digitalWrite(uint8_t, uint8_t);
 int digitalRead(uint8_t);
