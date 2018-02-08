@@ -18,6 +18,13 @@
 */
 
 #include <Arduino.h>
+
+// Arduino.h defines max and min (which it shouldn't) and pollutes
+// the namespace
+//
+#undef max
+#undef min
+
 #include "virtual_io.h"
 #include <iostream>
 
