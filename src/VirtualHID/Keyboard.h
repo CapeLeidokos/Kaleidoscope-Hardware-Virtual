@@ -3,7 +3,7 @@
 // Essentially equivalent to the corresponding header file in KeyboardioHID
 // with the goal of having an almost identical interface, with different implementation
 
-#include "Arduino.h"
+#include "GuardedArduino.h"
 #include "HIDTables.h"
 #define HID_FIRST_KEY HID_KEYBOARD_NO_EVENT
 #define HID_LAST_KEY HID_KEYPAD_HEXADECIMAL

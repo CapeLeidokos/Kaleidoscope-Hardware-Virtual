@@ -20,7 +20,7 @@
 */
 
 #include "WString.h"
-#include "Arduino.h"
+#include "GuardedArduino.h"
 
 /*********************************************/
 /*  Constructors                             */

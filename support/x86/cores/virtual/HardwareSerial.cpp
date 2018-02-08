@@ -1,5 +1,5 @@
 #include "HardwareSerial.h"
-#include "Arduino.h"
+#include "GuardedArduino.h"
 
 // see comments in the real HardwareSerial.cpp
 void serialEvent() __attribute__((weak));

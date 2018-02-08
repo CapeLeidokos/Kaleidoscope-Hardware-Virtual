@@ -1,4 +1,4 @@
-#include "Arduino.h"
+#include "GuardedArduino.h"
 
 // TODO: better time emulation
 // this is pretty hacky, but hopefully helps most code behave sanely

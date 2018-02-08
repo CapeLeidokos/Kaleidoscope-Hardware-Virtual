@@ -19,6 +19,13 @@
 #pragma once
 
 #include <Arduino.h>
+
+// Arduino.h defines max and min (which it shouldn't) and pollutes
+// the namespace
+//
+#undef max
+#undef min
+
 #define HARDWARE_IMPLEMENTATION Virtual
 
 #define COLS 16
