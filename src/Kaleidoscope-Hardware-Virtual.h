@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <Arduino.h>
+#include "GuardedArduino.h"
 
 // Arduino.h defines max and min (which it shouldn't) and pollutes
 // the namespace

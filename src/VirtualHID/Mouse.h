@@ -3,7 +3,7 @@
 // Essentially equivalent to the corresponding header file in KeyboardioHID
 // with the goal of having an almost identical interface, with different implementation
 
-#include <Arduino.h>
+#include "GuardedArduino.h"
 
 #define MOUSE_LEFT    (1 << 0)
 #define MOUSE_RIGHT   (1 << 1)

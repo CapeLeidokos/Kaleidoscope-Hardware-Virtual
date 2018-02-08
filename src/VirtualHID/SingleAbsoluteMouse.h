@@ -3,7 +3,7 @@
 // Essentially equivalent to the corresponding header file in KeyboardioHID
 // with the goal of having an almost identical interface, with different implementation
 
-#include <Arduino.h>
+#include "GuardedArduino.h"
 
 class SingleAbsoluteMouse_ {
  public:

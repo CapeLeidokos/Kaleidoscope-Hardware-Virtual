@@ -17,7 +17,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <Arduino.h>
+#include "GuardedArduino.h"
 
 // Arduino.h defines max and min (which it shouldn't) and pollutes
 // the namespace
