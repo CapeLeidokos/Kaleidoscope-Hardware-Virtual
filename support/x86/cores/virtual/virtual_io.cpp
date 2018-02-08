@@ -8,6 +8,11 @@
 #include <sys/stat.h>  // mkdir()
 #include <errno.h>
 
+#ifdef _WIN32
+#   define  mkdir( D, M )   _mkdir( D )
+#endif
+
+
 static bool interactive;
 static std::istream* input = NULL;
 static std::ostream* usbstream = NULL;
