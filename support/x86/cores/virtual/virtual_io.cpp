@@ -9,7 +9,7 @@
 #include <errno.h>
 
 #ifdef _WIN32
-#   define my_mkdir( D, M )   _mkdir( D )
+#   define my_mkdir( D, M ) mkdir( D )
 #else
 #   define my_mkdir( D, M ) mkdir( D, M )
 #endif
