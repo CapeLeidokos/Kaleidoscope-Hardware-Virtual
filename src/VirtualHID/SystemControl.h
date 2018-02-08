@@ -3,7 +3,7 @@
 // Essentially equivalent to the corresponding header file in KeyboardioHID
 // with the goal of having an almost identical interface, with different implementation
 
-#include "GuardedArduino.h"
+#include "Arduino.h"
 #include "HIDTables.h"
 
 typedef union {
