@@ -27,7 +27,7 @@ extern "C" {
 
 void randomSeed(unsigned long seed) {
   if (seed != 0) {
-    srandom(seed);
+    srand(seed);
   }
 }
 
@@ -35,7 +35,7 @@ long random(long howbig) {
   if (howbig == 0) {
     return 0;
   }
-  return random() % howbig;
+  return rand() % howbig;
 }
 
 long random(long howsmall, long howbig) {
