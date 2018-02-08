@@ -9,7 +9,9 @@
 #include <errno.h>
 
 #ifdef _WIN32
-#   define  mkdir( D, M )   _mkdir( D )
+#   define my_mkdir( D, M )   _mkdir( D )
+#else
+#   define my_mkdir( D, M ) mkdir( D, M )
 #endif
 
 
@@ -72,7 +74,7 @@ bool initVirtualInput(int argc, char* argv[]) {
     }
   }
 
-  if (mkdir("results", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) && errno != EEXIST) {
+  if (my_mkdir("results", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) && errno != EEXIST) {
     std::cerr << "Error creating directory 'results', errno " << errno << std::endl;
     return false;
   }
