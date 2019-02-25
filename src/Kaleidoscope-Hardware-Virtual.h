@@ -52,16 +52,33 @@ class Virtual {
   void readMatrix(void);
   void actOnMatrixScan(void);
 
-  void maskKey(byte row, byte col);
-  void unMaskKey(byte row, byte col);
-  bool isKeyMasked(byte row, byte col);
+  void maskKey(KeyAddr keyAddr);
+  KS_ROW_COL_FUNC void maskKey(byte row, byte col) {
+    maskKey(KeyAddr(row, col));
+  }
+
+  void unMaskKey(KeyAddr keyAddr);
+  KS_ROW_COL_FUNC void unMaskKey(byte row, byte col) {
+    unMaskKey(KeyAddr(row, col));
+  }
+
+  bool isKeyMasked(KeyAddr keyAddr);
+  KS_ROW_COL_FUNC bool isKeyMasked(byte row, byte col) {
+    return isKeyMasked(KeyAddr(row, col));
+  }
   void maskHeldKeys(void);
 
   // For virtual hardware, the current state of all LEDs will be logged to a dedicated file in results upon each call to syncLeds()
   void syncLeds(void);
-  void setCrgbAt(byte /*row*/, byte /*col*/, cRGB /*color*/);
+  void setCrgbAt(LEDAddr /*ledAddr*/, cRGB /*color*/);
+  KS_ROW_COL_FUNC void setCrgbAt(byte row, byte col, cRGB /*color*/) {
+    setCrgbAt(LEDAddr(row, col));
+  }
   void setCrgbAt(uint8_t /*i*/, cRGB /*color*/);
-  cRGB getCrgbAt(byte /*row*/, byte /*col*/) const;  // not part of the official Kaleidoscope-Hardware API, but an extension we use here
+  cRGB getCrgbAt(LEDAddr /*ledAddr*/) const;// not part of the official Kaleidoscope-Hardware API, but an extension we use here
+  KS_ROW_COL_FUNC cRGB getCrgbAt(byte row, byte col) const {
+    return getCrgbAt(LEDAddr(row, col));
+  }
   cRGB getCrgbAt(uint8_t /*i*/) const;
 
   void scanMatrix(void) {
@@ -73,8 +90,16 @@ class Virtual {
     _readMatrixEnabled = state;
   }
 
-  void setKeystate(byte row, byte col, keystate ks);
-  keystate getKeystate(byte row, byte col) const;
+  void setKeystate(KeyAddr keyAddr, keystate ks);
+  KS_ROW_COL_FUNC void setKeystate(byte row, byte col, keystate ks) {
+    setKeystate(KeyAddr(row, col), ks);
+  }
+
+  keystate getKeystate(KeyAddr keyAddr) const;
+  KS_ROW_COL_FUNC keystate getKeystate(byte row, byte col) const {
+    return getKeystate(KeyAddr(row, col));
+  }
+
   void attachToHost(void);
   void detachFromHost(void);
   void setKeyscanInterval(uint8_t interval);
@@ -88,6 +113,14 @@ class Virtual {
    * pressed keys.
    */
   /**
+  * Check if a key is pressed at a given position.
+  *
+  * @param keyAddr the matrix address of the key.
+  *
+  * @returns true if the key is pressed, false otherwise.
+  */
+  bool isKeyswitchPressed(KeyAddr keyAddr);
+  /**
    * Check if a key is pressed at a given position.
    *
    * @param row is the row the key is located at in the matrix.
@@ -95,7 +128,9 @@ class Virtual {
    *
    * @returns true if the key is pressed, false otherwise.
    */
-  bool isKeyswitchPressed(byte row, byte col);
+  KS_ROW_COL_FUNC bool isKeyswitchPressed(byte row, byte col) {
+    return isKeyswitchPressed(KeyAddr(row, col));
+  }
   /**
    * Check if a key is pressed at a given position.
    *
@@ -140,8 +175,11 @@ class Virtual {
  * zero. We can use this to avoid having to explicitly add a sentinel in
  * user-facing code.
  */
-constexpr byte keyIndex(byte row, byte col) {
-  return row * COLS + col + 1;
+constexpr byte keyIndex(KeyAddr keyAddr) {
+  return keyAddr.offset() + 1;
+}
+KS_ROW_COL_FUNC constexpr byte keyIndex(byte row, byte col) {
+  return keyIndex(KeyAddr(row, col));
 }
 
 constexpr byte R0C0  = keyIndex(0, 0);

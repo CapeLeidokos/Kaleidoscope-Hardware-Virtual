@@ -123,18 +123,18 @@ void Virtual::readMatrix() {
   }
 }
 
-void Virtual::setKeystate(byte row, byte col, keystate ks) {
-  keystates[row][col] = ks;
+void Virtual::setKeystate(KeyAddr keyAddr, keystate ks) {
+  keystates[keyAddr.row()][keyAddr.col()] = ks;
 }
 
 void Virtual::setKeyscanInterval(uint8_t interval) {
-	// TODO implement;
-return;
+  // TODO implement;
+  return;
 
 }
 
-Virtual::keystate Virtual::getKeystate(byte row, byte col) const {
-  return keystates[row][col];
+Virtual::keystate Virtual::getKeystate(KeyAddr keyAddr) const {
+  return keystates[keyAddr.row()][keyAddr.col()];
 }
 
 void Virtual::actOnMatrixScan() {
@@ -163,11 +163,11 @@ void Virtual::actOnMatrixScan() {
         /* do nothing */
         break;
       }
-      handleKeyswitchEvent(Key_NoKey, row, col, keyState);
+      handleKeyswitchEvent(Key_NoKey, KeyAddr(row, col), keyState);
       keystates_prev[row][col] = keystates[row][col];
       if (keystates[row][col] == TAP) {
         keyState = WAS_PRESSED & ~IS_PRESSED;
-        handleKeyswitchEvent(Key_NoKey, row, col, keyState);
+        handleKeyswitchEvent(Key_NoKey, KeyAddr(row, col), keyState);
         keystates[row][col] = NOT_PRESSED;
         keystates_prev[row][col] = NOT_PRESSED;
       }
@@ -175,17 +175,17 @@ void Virtual::actOnMatrixScan() {
   }
 }
 
-bool Virtual::isKeyswitchPressed(byte row, byte col) {
-  if (keystates[row][col] == NOT_PRESSED) {
-	return false; 
+bool Virtual::isKeyswitchPressed(KeyAddr keyAddr) {
+  if (keystates[keyAddr.row()][keyAddr.col()] == NOT_PRESSED) {
+    return false;
 
   }
- return true;
+  return true;
 }
 
 bool Virtual::isKeyswitchPressed(uint8_t keyIndex) {
   keyIndex--;
-  return isKeyswitchPressed(keyIndex / COLS, keyIndex % COLS);
+  return isKeyswitchPressed(KeyAddr(keyIndex));
 }
 
 
@@ -257,20 +257,20 @@ static rc getRCfromPhysicalKey(std::string keyname) {
   return {255, 255};
 }
 
-void Virtual::maskKey(byte row, byte col) {
-  if (row >= ROWS || col >= COLS)
+void Virtual::maskKey(KeyAddr keyAddr) {
+  if (!keyAddr.isValid())
     return;
   mask[row][col] = true;
 }
 
-void Virtual::unMaskKey(byte row, byte col) {
-  if (row >= ROWS || col >= COLS)
+void Virtual::unMaskKey(KeyAddr keyAddr) {
+  if (!keyAddr.isValid())
     return;
   mask[row][col] = false;
 }
 
-bool Virtual::isKeyMasked(byte row, byte col) {
-  if (row >= ROWS || col >= COLS)
+bool Virtual::isKeyMasked(KeyAddr keyAddr) {
+  if (!keyAddr.isValid())
     return false;
   return mask[row][col];
 }
@@ -295,16 +295,16 @@ void Virtual::syncLeds(void) {
   logLEDStates(ss.str());
 }
 
-void Virtual::setCrgbAt(byte row, byte col, cRGB color) {
-  setCrgbAt(row * COLS + col, color);
+void Virtual::setCrgbAt(LEDAddr ledAddr, cRGB color) {
+  setCrgbAt(ledAddr.offset(), color);
 }
 
 void Virtual::setCrgbAt(byte i, cRGB color) {
   ledStates[i] = color;
 }
 
-cRGB Virtual::getCrgbAt(byte row, byte col) const {
-  return getCrgbAt(row * COLS + col);
+cRGB Virtual::getCrgbAt(LEDAddr ledAddr) const {
+  return getCrgbAt(ledAddr.offset());
 }
 
 cRGB Virtual::getCrgbAt(byte i) const {
@@ -312,12 +312,12 @@ cRGB Virtual::getCrgbAt(byte i) const {
 }
 
 void Virtual::attachToHost(void) {
-	return;
-	// TODO - stub implementation
+  return;
+  // TODO - stub implementation
 }
 void Virtual::detachFromHost(void)  {
-	return;
-	// TODO - stub implementation
+  return;
+  // TODO - stub implementation
 }
 
 HARDWARE_IMPLEMENTATION KeyboardHardware;
